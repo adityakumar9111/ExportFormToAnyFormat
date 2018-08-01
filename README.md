@@ -1,13 +1,13 @@
-jquery.formExport
+jquery.formExport Version 1.0.1
 ====================
 
-Adds the method `.formExport()` to [jQuery](http://jquery.com/) that serializes a form into a JavaScript Object, using the same format as the default Ruby on Rails request params.
+Adds the method `.formExport()` to [jQuery](http://jquery.com/) that serializes a form into a JavaScript Object into any format do you want to use
 
 
 And make sure it is included after jQuery, for example:
 ```html
 <script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="jquery.formExport.js"></script>
+<script type="text/javascript" src="formExport.js"></script>
 ```
 
 Usage Example
@@ -24,10 +24,12 @@ HTML form:
 
 JavaScript:
 ```javascript
-var result = $('form').formExport();
+var controls = {};  //if no controls specified  then default control will be loaded  automatically.
+ $('form').formExport(controls,function(data){
+      console.log(data);
+  });
 
-result(function(callback){
-      // callback returns =>
+ data returns =>
 {
   title: "Finding Loot",
   author: {
@@ -35,7 +37,6 @@ result(function(callback){
     job: "Legendary Pirate"
   }
 }
-  })
 
 
 ```
@@ -88,10 +89,14 @@ HTML form:
 JavaScript:
 
 ```javascript
-var result = $('form').formExport();
+var controls = {};  //if no controls specified  then default control will be loaded  automatically.
+$('form').formExport(controls,function(data){
+               console.log(data);
+  });
 
-result(function(callback){
-      //callback returns =>
+
+
+ //data returns =>
 {
   fullName: "Mario Izquierdo",
 
@@ -113,7 +118,7 @@ result(function(callback){
   selectOne: "rock",
   selectMultiple: ["red", "blue"]
 }
-  })
+  
 
 
 ```
@@ -162,10 +167,14 @@ All attribute values are **strings** by default. But you can force values to be 
 ```
 
 ```javascript
-var result = $('form').formExport();
+ var controls = {};  //if no controls specified  then default control will be loaded  automatically.
+ $('form').formExport(controls,function(data){
+               console.log(data);
+  });
 
-result(function(callback){
-// callback returns =>
+
+
+// data returns =>
 {
   "strbydefault": ":string is the default (implicit) type",
   "text": ":string type can still be used to overrid other parsing options",
@@ -202,7 +211,6 @@ result(function(callback){
     "not empty": {"my": "stuff"}
   }
 }
-  })
 
 
 ```
@@ -231,7 +239,8 @@ Allowed options to change the default behavior:
   * **customTypes: {}**, define your own :types or override the default types. Defined as an object like `{ type: function(value){...} }`. For example: `{customTypes: {nullable: function(str){ return str || null; }}`.
   * **defaultTypes: {defaultTypes}**, in case you want to re-define all the :types. Defined as an object like `{ type: function(value){...} }`
   * **useIntKeysAsArrayIndex: true**, when using integers as keys (i.e. `<input name="foods[0]" value="banana">`), serialize as an array (`{"foods": ["banana"]}`) instead of an object (`{"foods": {"0": "banana"}`).
-  * **isAjex: false**,  it can be changed according to need but ajexUrl must be provided .
+  * **exportType: object**,  in case you want to re-define all the :types like object,array,json.
+  * **isAjex: false**,  it can be toggle according to need in case you change it true, you must be provide url in ajexUrl option.
 
  Ajex Example
 -------------
@@ -247,14 +256,17 @@ HTML form:
 
 JavaScript:
 ```javascript
-var result = $('form').formExport({isAjex:true,ajexUrl:'http://localhost/projects/temp/test.php',exportType:'json'});
+  var controls = {isAjex:true,ajexUrl:'http://localhost/projects/temp/test.php',exportType:'json'};
+ $('form').formExport(controls, function(data){
+       console.log(data);
+  });
 
-result(function(callback){
-      // callback returns =>
+
+      // data returns =>
 {
     ajex responce
 }
-  })
+  
 
 
 ```
@@ -279,6 +291,9 @@ But, to make things easier, `formExport` includes the option `checkboxUncheckedV
 
 
 
+Changelog
+-------
+* 1.1.0 (Aug 01, 2018): change the method to call exportForm function, added option to get data as array.
 
 
 Author Aditya Srivastav

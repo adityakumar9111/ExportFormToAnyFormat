@@ -12,7 +12,7 @@
 }(function ($) {
   "use strict";
 
-  $.fn.formExport = function (options) {
+  $.fn.formExport = function (options,callback123) {
     var f, $form, opts, formAsArray, serializedObject, name, value, parsedValue, _obj, nameWithNoType, type, keys, skipFalsy;
     f = $.formExport;
     $form = this; 
@@ -49,16 +49,15 @@
       } 
 
       else{
-        return function adi(callback){
              $.ajax({
              type: "POST",
              url:opts.ajexUrl,
             data:  JSON.stringify(serializedObject),
             success: function(resultResponse){
-            callback(resultResponse); 
+            callback123(resultResponse); 
          }
           });
-        }
+        
       } 
 
     }
@@ -70,31 +69,25 @@
       } 
 
       else{
-        return function adi(callback){
              $.ajax({
              type: "POST",
              url:opts.ajexUrl,
             data: serializedObject,
             success: function(resultResponse){
-            callback(resultResponse); 
+            callback123(resultResponse); 
          }
           });
-        }
       } 
         
     }
 
       else if(opts.exportType == 'json' && opts.isAjex == false){
 
-          return function adi(callback){
-            callback( JSON.stringify(serializedObject));
-       }
+            callback123( JSON.stringify(serializedObject));
     }
 
     else{
-       return function adi(callback){
-            callback(serializedObject);
-       }
+            callback123(serializedObject);
          
     }
    
