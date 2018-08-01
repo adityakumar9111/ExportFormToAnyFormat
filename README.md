@@ -296,4 +296,7 @@ Changelog
 * 1.1.0 (Aug 01, 2018): change the method to call exportForm function, added option to get data as array.
 
 
-Author Aditya Srivastav
+Author
+-------
+
+ Aditya Srivastav
