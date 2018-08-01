@@ -1,4 +1,4 @@
-jquery.formExport Version 1.0.1
+jquery.formExport Version 1.1.0
 ====================
 
 Adds the method `.formExport()` to [jQuery](http://jquery.com/) that serializes a form into a JavaScript Object into any format do you want to use
